@@ -26,12 +26,12 @@ for idx, (data, target) in enumerate(train_loader):
     if os.path.exists(root) is False:
         os.makedirs(root)
 
-    # for s in range(ns):
-    #     temp = template(2, s * 0.4)
-    #     img = img_conv2d(data, temp)
-    #     file_name = 'data/augemented_data/' + str(target) + '/' + str(idx) + '-' + str(s) + '.bmp'
-    #     im = Image.fromarray(np.uint8(img)).convert('L')
-    #     im.save(file_name)
+    for s in range(ns):
+        temp = template(2, s * 0.4)
+        img = img_conv2d(data, temp)
+        file_name = 'data/augemented_data/' + str(target) + '/' + str(idx) + '-' + str(s) + '.bmp'
+        im = Image.fromarray(np.uint8(img)).convert('L')
+        im.save(file_name)
 
     if idx % 6000 == 0:
         print('Prossing : {}/{} ({:.0f}%)'.format(idx, len(train_loader.dataset),100. * idx / len(train_loader)))
