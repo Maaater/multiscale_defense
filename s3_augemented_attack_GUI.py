@@ -124,22 +124,14 @@ def run():
                     ori_data = data.transpose(1,2,0) *255
 
                 if save_adv.get():
-                    # image_data = np.zeros([28, 28])
-
-                    # TODO : needs to be fixed
-                    
                     hackedname = hacked_data_path + '/' + str(count) + '-' + str(label) + '-' + str(adv_label) + ".npy"
                     np.save(hackedname, image_data)
                     image = Image.fromarray(image_data.astype(np.uint8))
                     image.save("{hackedpath}/{name}-{label}-{adv_label}.png".format(hackedpath=hacked_path,name=count, label=label, adv_label=adv_label))
 
                 if save_ori.get():
-                    # ori_data = np.zeros([28,28])
-                    
-
                     oriname = original_data_path + '/' + str(count) + '-' + str(label) + ".npy"
                     np.save(oriname, ori_data)
-
                     oriimage = Image.fromarray(ori_data.astype(np.uint8))
                     oriimage.save("{originalpath}/{name}-{label}.png".format(originalpath=original_path,name=count,label=label))
                 
