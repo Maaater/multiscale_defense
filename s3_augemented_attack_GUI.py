@@ -112,11 +112,20 @@ def run():
             adv_label = np.argmax(fmodel.predictions(adversarial))
 
             if np.linalg.norm(adversarial - data) > 0:
+                dataset = comboxlist.get()
+                if dataset == 'MNIST':
+                    image_data = adversarial[0] * 255
+                    ori_data = data[0] * 255
+
+                if dataset == 'CIFAR10':
+                    image_data = adversarial.transpose(1,2,0)*255
+                    ori_data = data.transpose(1,2,0) *255
+
                 if save_adv.get():
                     # image_data = np.zeros([28, 28])
 
                     # TODO : needs to be fixed
-                    image_data = adversarial[0] * 255
+                    
                     hackedname = hacked_data_path + '/' + str(count) + '-' + str(label) + '-' + str(adv_label) + ".npy"
                     np.save(hackedname, image_data)
                     image = Image.fromarray(image_data.astype(np.uint8))
@@ -124,7 +133,7 @@ def run():
 
                 if save_ori.get():
                     # ori_data = np.zeros([28,28])
-                    ori_data = data[0] * 255
+                    
 
                     oriname = original_data_path + '/' + str(count) + '-' + str(label) + ".npy"
                     np.save(oriname, ori_data)
@@ -134,10 +143,10 @@ def run():
                 
                 count = count + 1
             
-            if count % (att_num.get() / 10) == 0:
+            if count % (int(att_num.get()) / 10) == 0:
                 log_text = "Attack: {}/{}".format(count, att_num.get())
                 send_information(Receive_window, log_text)
-            if count > att_num.get():
+            if count > int(att_num.get()):
                 break
 
     log_text = "Done! The adversarial images and correspoinding data are stored in attacks for next use in step4!"
