@@ -1,0 +1,7 @@
+data/
+.vscode/
+models/__pycache__/
+
+utils/__pycache__/__init__.cpython-36.pyc
+utils/__pycache__/utils.cpython-36.pyc
+utils/__pycache__/gaussianblur.cpython-36.pyc
